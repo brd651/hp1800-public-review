@@ -1,0 +1,16 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+*.pyc
+*.cfg
+*.har
+*.bak
+*.pem
+*.key
+hp1800-snapshot-*/
+hp1800-preapply-*/
+hp1800-prereset-*/
+.env
+.env.*
+*.log
