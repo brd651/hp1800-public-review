@@ -1,0 +1,50 @@
+# Example desired state adapted from LAB-SW01-initial.yaml.
+# This is intentionally partial: apply-config changes only the sections/fields
+# included here. Review the live plan before applying any switch configuration.
+schema: hp1800ctl.config.v1
+metadata:
+  model: J9028B
+  firmware: PB.03.10
+  purpose: Example access-switch configuration
+
+system:
+  name: SWITCH-EXAMPLE
+  location: Network closet
+  contact: ""
+
+ports:
+  jumbo_frames: true
+  settings:
+    1:
+      speed_duplex: Auto
+      flow_control: false
+    2:
+      speed_duplex: Auto
+      flow_control: false
+
+# VLAN 1 is the management VLAN in this example. Port 1 carries tagged VLANs;
+# Port 2 is an untagged access port in VLAN 10.
+vlans:
+  prune: false
+  items:
+    1:
+      management: true
+      members:
+        - Port 1
+    10:
+      management: false
+      members:
+        - Port 1
+        - Port 2
+
+vlan_interfaces:
+  Port 1:
+    vlan_aware: true
+    ingress_filtering: true
+    packet_type: tagged_only
+    pvid: null
+  Port 2:
+    vlan_aware: true
+    ingress_filtering: true
+    packet_type: all
+    pvid: 10
